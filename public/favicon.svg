@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <rect width="48" height="48" rx="10" fill="#08080a" />
+  <mask id="crescent">
+    <circle cx="33" cy="13" r="9" fill="#fff" />
+    <circle cx="37.5" cy="9" r="7.5" fill="#000" />
+  </mask>
+  <circle cx="33" cy="13" r="9" fill="#e3a548" mask="url(#crescent)" />
+  <path d="M20 33 L31 15" stroke="#e3a548" stroke-width="3.4" stroke-linecap="round" />
+  <ellipse cx="14" cy="37" rx="8.4" ry="6.6" transform="rotate(-18 14 37)" fill="#e3a548" />
+</svg>
