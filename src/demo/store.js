@@ -8,16 +8,26 @@ export const useDemoStore = create((set, get) => ({
   isPlaying: true,
   isLoading: false,
   volume: 0.7,
+  _lastVolume: 0.7,
   progress: 34,
   duration: DEMO_TRACKS[0].duration,
   shuffle: false,
   repeat: 'off',
   liked: {},
 
+  // ── Queue (simulated) ─────────────────────────────────────
+  queue: DEMO_TRACKS.map(t => ({ ...t, queueSource: 'manual' })),
+  queueIndex: 0,
+
   // ── UI ────────────────────────────────────────────────────
   activeView: 'player',
   activePlaylistId: null,
   showTrackDetails: true,
+  showMoreMenu: false,
+  radioMode: false,
+  playbackRate: 1,
+  sleepTimerEnd: null,
+  crossfadeDuration: 0,
 
   // ── Actions ───────────────────────────────────────────────
   togglePlay: () => set((s) => ({ isPlaying: !s.isPlaying })),
@@ -60,7 +70,30 @@ export const useDemoStore = create((set, get) => ({
 
   toggleTrackDetails: () => set((s) => ({ showTrackDetails: !s.showTrackDetails })),
 
+  toggleMoreMenu: () => set((s) => ({ showMoreMenu: !s.showMoreMenu })),
+  closeMoreMenu: () => set({ showMoreMenu: false }),
+
+  setPlaybackRate: (rate) => set({ playbackRate: rate }),
+  setSleepTimer: (minutes) => set({
+    sleepTimerEnd: minutes ? Date.now() + minutes * 60_000 : null,
+  }),
+  setCrossfadeDuration: (seconds) => set({ crossfadeDuration: seconds }),
+
+  toggleRadio: () => set((s) => ({ radioMode: !s.radioMode })),
+
   setView: (view, id) => set({ activeView: view, activePlaylistId: id ?? get().activePlaylistId }),
+
+  // ── Simulated queue actions ───────────────────────────────
+  playNext: (track) =>
+    set((s) => {
+      const insertAt = Math.max(0, s.queueIndex) + 1
+      const newQueue = [...s.queue]
+      newQueue.splice(insertAt, 0, { ...track, queueSource: 'play-next' })
+      return { queue: newQueue }
+    }),
+
+  addToQueue: (track) =>
+    set((s) => ({ queue: [...s.queue, { ...track, queueSource: 'manual' }] })),
 
   // Internal tick, called by a single interval owned by DemoApp.
   tick: () =>

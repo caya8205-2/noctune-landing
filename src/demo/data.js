@@ -12,6 +12,7 @@ export const DEMO_TRACKS = [
     source: 'resolved',
     playCount: 41,
     accent: ['#EAB14C', '#7A5A2A'],
+
     meta: {
       popularity: 60,
       trackNumber: 1,

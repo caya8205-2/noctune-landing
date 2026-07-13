@@ -3,6 +3,8 @@ import { Heart, Info, Pause, Play, Repeat, Repeat1, Shuffle, SkipBack, SkipForwa
 import clsx from 'clsx'
 import { useDemoStore } from './store.js'
 import { TrackArt } from './TrackArt.jsx'
+import { DemoTrackActionButtons } from './DemoTrackActionButtons.jsx'
+import { DemoMoreOptionsMenu } from './DemoMoreOptionsMenu.jsx'
 
 function formatDuration(seconds) {
   if (!seconds || isNaN(seconds)) return '--:--'
@@ -196,6 +198,20 @@ export function DemoPlayerBar() {
               <Heart size={15} fill={isLiked ? 'currentColor' : 'none'} />
             </button>
           )}
+
+          {currentTrack && (
+            <DemoTrackActionButtons
+              track={currentTrack}
+              className="contents"
+              buttonClassName="btn-ghost p-1.5"
+              iconSize={15}
+              showQueue={false}
+              showLike={false}
+              showRadio={true}
+            />
+          )}
+
+          {currentTrack && <DemoMoreOptionsMenu />}
 
           <button
             onClick={toggleTrackDetails}

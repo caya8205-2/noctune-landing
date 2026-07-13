@@ -1,9 +1,10 @@
-import { useMemo } from 'react'
-import { Activity, Database, Gauge, Heart, Loader2, Mic2, Pause, Play, Radio, Repeat, Repeat1, Shuffle, SkipBack, SkipForward, Zap } from 'lucide-react'
+import { useMemo, useEffect, useRef, useState } from 'react'
+import { Activity, Database, Gauge, Loader2, Mic2, Music2, Pause, Play, Radio, Repeat, Repeat1, Shuffle, SkipBack, SkipForward, Zap } from 'lucide-react'
 import clsx from 'clsx'
 import { useDemoStore } from './store.js'
 import { TrackArt } from './TrackArt.jsx'
 import { DemoVisualizer } from './DemoVisualizer.jsx'
+import { DemoTrackActionButtons } from './DemoTrackActionButtons.jsx'
 
 function formatDuration(seconds) {
   if (!seconds || isNaN(seconds)) return '--:--'
@@ -29,9 +30,32 @@ function LyricsPanel({ track, progress }) {
     return active
   }, [track, progress])
 
+  const scrollRef = useRef(null)
+  const activeLineRef = useRef(null)
+
+  useEffect(() => {
+    const container = scrollRef.current
+    const activeLine = activeLineRef.current
+    if (!container || !activeLine) return
+
+    const containerRect = container.getBoundingClientRect()
+    const activeLineRect = activeLine.getBoundingClientRect()
+    const targetTop =
+      container.scrollTop +
+      activeLineRect.top -
+      containerRect.top -
+      container.clientHeight / 2 +
+      activeLineRect.height / 2
+
+    container.scrollTo({
+      top: Math.max(0, targetTop),
+      behavior: 'smooth',
+    })
+  }, [activeIndex])
+
   return (
     <div className="h-[220px] rounded-xl border border-base-600/70 bg-base-800/70 overflow-hidden">
-      <div className="h-full overflow-y-auto px-6 py-5">
+      <div ref={scrollRef} className="h-full overflow-y-auto px-6 py-5">
         <div className="flex min-h-full flex-col justify-center gap-3">
           {track.lyrics.map((line, index) => {
             const isActive = index === activeIndex
@@ -39,6 +63,7 @@ function LyricsPanel({ track, progress }) {
             return (
               <p
                 key={index}
+                ref={isActive ? activeLineRef : null}
                 className={clsx(
                   'text-lg leading-relaxed transition-all duration-200',
                   isActive ? 'scale-[1.02] font-semibold text-white' : isPassed ? 'text-muted/60' : 'text-soft'
@@ -54,12 +79,57 @@ function LyricsPanel({ track, progress }) {
   )
 }
 
-export function DemoPlayerView() {
-  const { currentTrack, isPlaying, isLoading, progress, shuffle, repeat, liked, togglePlay, prev, next, toggleShuffle, cycleRepeat, toggleLike } =
-    useDemoStore()
+function LoadingLyricsPanel() {
+  return (
+    <div className="min-h-[220px] rounded-xl border border-base-600/70 bg-base-800/70 px-6 py-5 flex items-center justify-center text-sm text-muted">
+      <Loader2 size={16} className="mr-2 animate-spin" />
+      Loading lyrics
+    </div>
+  )
+}
 
+export function DemoPlayerView() {
+  const { currentTrack, isPlaying, isLoading, progress, queue, queueIndex, shuffle, repeat, togglePlay, prev, next, toggleShuffle, cycleRepeat } =
+    useDemoStore()
+  const [lyricsLoading, setLyricsLoading] = useState(false)
+
+  const upcomingCount = Math.max(0, queue.length - queueIndex - 1)
   const SourceIcon = currentTrack?.source ? sourceMeta[currentTrack.source]?.Icon : null
-  const isLiked = currentTrack ? Boolean(liked[currentTrack.id]) : false
+
+  // Simulate lyrics loading when track changes
+  useEffect(() => {
+    if (!currentTrack) return
+    setLyricsLoading(true)
+    const id = setTimeout(() => setLyricsLoading(false), 400 + Math.random() * 300)
+    return () => clearTimeout(id)
+  }, [currentTrack?.id])
+
+  if (!currentTrack) {
+    return (
+      <div className="h-full overflow-y-auto px-4 py-5 sm:px-6 sm:py-6 lg:px-9 lg:py-8">
+        <section className="flex min-h-full flex-col items-center justify-center gap-5 text-muted">
+          <div className="flex items-center justify-between gap-5">
+            <div className="flex h-24 w-24 items-center justify-center rounded-xl border border-base-600/60 bg-base-700">
+              <Music2 size={42} strokeWidth={1.3} />
+            </div>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-base-600/40 bg-base-900/60 px-2.5 py-1 text-xs text-soft">
+              <Zap size={12} className="text-accent" />
+              Prefetch ready
+            </span>
+          </div>
+          <div>
+            <p className="section-label mb-2 text-accent">Noctune</p>
+            <h2 className="text-3xl font-bold leading-tight text-white sm:text-4xl">
+              Choose a track to begin.
+            </h2>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">
+              Search for a song, start playback, and Noctune will build the queue around it.
+            </p>
+          </div>
+        </section>
+      </div>
+    )
+  }
 
   return (
     <div className="h-full overflow-y-auto px-4 py-5 sm:px-6 sm:py-6 lg:px-9 lg:py-8">
@@ -89,6 +159,10 @@ export function DemoPlayerView() {
 
           <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-base-600/40 bg-base-900/60 px-2.5 py-1 text-xs text-soft">
+              <Zap size={12} className="text-accent" />
+              {upcomingCount} queued
+            </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-base-600/40 bg-base-900/60 px-2.5 py-1 text-xs text-soft">
               <Gauge size={12} />
               {formatDuration(currentTrack.duration)}
             </span>
@@ -98,16 +172,15 @@ export function DemoPlayerView() {
                 {sourceMeta[currentTrack.source].label}
               </span>
             )}
-            <button
-              onClick={() => toggleLike(currentTrack.id)}
-              className={clsx(
-                'inline-flex h-[30px] min-w-[42px] items-center justify-center gap-1.5 rounded-full border border-base-600/40 bg-base-900/60 px-2.5 transition-colors',
-                isLiked ? 'text-red-400' : 'text-muted hover:text-white'
-              )}
-              title={isLiked ? 'Remove from Liked Songs' : 'Add to Liked Songs'}
-            >
-              <Heart size={15} fill={isLiked ? 'currentColor' : 'none'} />
-            </button>
+            <DemoTrackActionButtons
+              track={currentTrack}
+              className="contents"
+              buttonClassName="inline-flex h-[30px] min-w-[42px] items-center justify-center gap-1.5 rounded-full border border-base-600/40 bg-base-900/60 px-2.5 transition-colors"
+              iconSize={15}
+              showQueue={false}
+              showLike={true}
+              showRadio={true}
+            />
           </div>
 
           <div className="mt-6 flex items-center justify-center gap-3 md:hidden">
@@ -148,7 +221,7 @@ export function DemoPlayerView() {
             <Mic2 size={15} className="text-accent" />
             <h2 className="section-label">Lyrics</h2>
           </div>
-          <LyricsPanel track={currentTrack} progress={progress} />
+          {lyricsLoading ? <LoadingLyricsPanel /> : <LyricsPanel track={currentTrack} progress={progress} />}
         </section>
       </section>
     </div>

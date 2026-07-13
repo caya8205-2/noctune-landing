@@ -2,6 +2,12 @@ import { useState } from 'react'
 
 const VIEWS = [
   {
+    key: 'full player',
+    label: 'Full player',
+    src: '/screenshot-full.png',
+    alt: 'Noctune full player view showing a track playing with album art, lyrics, and a list of upcoming tracks',
+  },
+  {
     key: 'stats',
     label: 'Stats',
     src: '/screenshot-stats.png',

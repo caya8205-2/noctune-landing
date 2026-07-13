@@ -16,7 +16,7 @@ export function DemoApp() {
   }, [tick])
 
   return (
-    <div className="relative flex h-[560px] flex-col overflow-hidden rounded-2xl border border-base-700/70 bg-base-950 text-white shadow-2xl shadow-black">
+    <div className="relative flex h-[648px] flex-col overflow-hidden rounded-2xl border border-base-700/70 bg-base-950 text-white shadow-2xl shadow-black">
       <div className="pointer-events-none absolute inset-0 bg-ambient" aria-hidden="true" />
 
       <div className="relative z-10 flex-shrink-0">
