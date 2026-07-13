@@ -177,7 +177,6 @@ export function DemoPlayerView() {
               className="contents"
               buttonClassName="inline-flex h-[30px] min-w-[42px] items-center justify-center gap-1.5 rounded-full border border-base-600/40 bg-base-900/60 px-2.5 transition-colors"
               iconSize={15}
-              showQueue={false}
               showLike={true}
               showRadio={true}
             />

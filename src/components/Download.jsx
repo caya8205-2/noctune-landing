@@ -7,7 +7,7 @@ export default function Download() {
         <div className="rounded-2xl border border-line bg-surface p-8 sm:p-12">
           <div className="flex flex-wrap items-start justify-between gap-8">
             <div className="max-w-md">
-              <h2 className="font-display text-[28px] font-light text-ink">Noctune v1.10.0</h2>
+              <h2 className="font-display text-[28px] font-light text-ink">Noctune v2.0.0</h2>
               <p className="mt-3 text-[14px] leading-relaxed text-muted">
                 Windows build packaged with Tauri, available now.
                 macOS and Linux are on the roadmap. No installer telemetry, no bundled ads.

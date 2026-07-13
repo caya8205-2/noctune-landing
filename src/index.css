@@ -300,6 +300,8 @@
     appearance: none;
     background: transparent;
     pointer-events: auto;
+    writing-mode: vertical-lr;
+    direction: rtl;
   }
   .eq-slider::-webkit-slider-thumb {
     -webkit-appearance: none;

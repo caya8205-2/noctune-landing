@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   BarChart3,
   Clock3,
+  Download,
   FolderOpen,
   Heart,
   Home,
+  ListMusic,
   ListOrdered,
+  Plus,
   Search,
   Settings,
   Sparkles,
@@ -43,10 +46,24 @@ const smartPlaylists = [
 export function DemoSidebar() {
   const { activeView, activePlaylistId, setView } = useDemoStore()
   const [currentTime, setCurrentTime] = useState(new Date())
+  const [playlistMenuOpen, setPlaylistMenuOpen] = useState(false)
+  const [importUrl, setImportUrl] = useState('')
+  const [importing, setImporting] = useState(false)
+  const menuRef = useRef(null)
 
   useEffect(() => {
     const timer = window.setInterval(() => setCurrentTime(new Date()), 60_000)
     return () => window.clearInterval(timer)
+  }, [])
+
+  useEffect(() => {
+    function handleClick(event) {
+      if (!menuRef.current?.contains(event.target)) {
+        setPlaylistMenuOpen(false)
+      }
+    }
+    window.addEventListener('mousedown', handleClick)
+    return () => window.removeEventListener('mousedown', handleClick)
   }, [])
 
   const likedPlaylist = DEMO_PLAYLISTS.find((pl) => pl.id === 'demo-liked')
@@ -93,8 +110,50 @@ export function DemoSidebar() {
       </nav>
 
       <div className="flex flex-shrink-0 flex-col" style={{ height: '38%' }}>
-        <div className="mb-2 flex flex-shrink-0 items-center justify-between px-3">
+        <div className="relative mb-2 flex flex-shrink-0 items-center justify-between px-3" ref={menuRef}>
           <span className="section-label">Playlists</span>
+          <button
+            onClick={() => setPlaylistMenuOpen((v) => !v)}
+            className="btn-ghost p-1"
+            title="New playlist"
+          >
+            <Plus size={14} />
+          </button>
+
+          {playlistMenuOpen && (
+            <div className="surface-panel absolute right-0 top-full z-50 mt-2 w-64 animate-slide-up p-1.5 md:left-[calc(100%+0.75rem)] md:right-auto md:top-0 md:mt-0">
+              <button
+                onClick={() => { setPlaylistMenuOpen(false) }}
+                className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-xs text-soft transition-colors hover:bg-white/[0.05] hover:text-white"
+              >
+                <Plus size={13} />
+                Local playlist
+              </button>
+              <form
+                onSubmit={(e) => { e.preventDefault(); if (!importUrl.trim()) return; setImporting(true); setTimeout(() => { setImporting(false); setImportUrl(''); setPlaylistMenuOpen(false) }, 800) }}
+                className="mt-1 border-t border-white/[0.06] pt-2"
+              >
+                <label className="flex items-center gap-2 px-2.5 py-1.5 text-xs text-soft">
+                  <Download size={13} />
+                  Import from URL
+                </label>
+                <input
+                  value={importUrl}
+                  onChange={(e) => setImportUrl(e.target.value)}
+                  disabled={importing}
+                  placeholder="Spotify or YouTube URL"
+                  className="input-base mt-1 py-2 text-xs"
+                />
+                <button
+                  type="submit"
+                  disabled={importing || !importUrl.trim()}
+                  className="btn-accent mt-2 w-full py-1.5 text-xs disabled:opacity-50"
+                >
+                  {importing ? 'Importing playlist' : 'Import'}
+                </button>
+              </form>
+            </div>
+          )}
         </div>
 
         <div className="min-h-0 flex-1 overflow-y-auto">
@@ -151,6 +210,7 @@ export function DemoSidebar() {
                   )}
                   onClick={() => setView('playlist', pl.id)}
                 >
+                  <ListMusic size={14} className={clsx('flex-shrink-0', active && 'text-accent')} />
                   <span className="flex-1 truncate">{pl.name}</span>
                 </div>
               )

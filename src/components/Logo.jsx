@@ -8,7 +8,6 @@ export default function Logo({ className = 'h-8 w-8', markOnly = false }) {
   return (
     <span className="inline-flex items-center gap-2.5">
       {mark}
-      <span className="font-display text-[19px] tracking-tight text-ink">noctune</span>
     </span>
   )
 }

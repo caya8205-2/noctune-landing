@@ -63,7 +63,7 @@ export const DEMO_TRACKS = [
   {
     id: 'demo-3',
     title: 'Glass Orbit',
-    artist: 'Nocturne Youth',
+    artist: 'Noctune Youth',
     album: 'Glass Orbit — Single',
     duration: 301,
     source: 'prefetch',

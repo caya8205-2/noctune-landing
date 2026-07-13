@@ -205,7 +205,6 @@ export function DemoPlayerBar() {
               className="contents"
               buttonClassName="btn-ghost p-1.5"
               iconSize={15}
-              showQueue={false}
               showLike={false}
               showRadio={true}
             />
