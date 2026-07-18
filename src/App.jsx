@@ -7,12 +7,14 @@ import Footer from './components/Footer.jsx'
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-base-950 text-ink">
+    <div className="site-shell">
       <Header />
-      <Hero />
-      <Features />
-      <Screenshot />
-      <Download />
+      <main>
+        <Hero />
+        <Features />
+        <Screenshot />
+        <Download />
+      </main>
       <Footer />
     </div>
   )

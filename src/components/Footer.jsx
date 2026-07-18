@@ -2,19 +2,17 @@ import Logo from './Logo.jsx'
 
 export default function Footer() {
   return (
-    <footer className="border-t border-line">
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-8">
-        <Logo className="h-6 w-6" />
-        <div className="flex gap-6 text-[13px] text-muted">
-          <a href="https://github.com/caya8205-2/noctune" className="transition hover:text-ink">
-            GitHub
-          </a>
-          <a
-            href="https://github.com/caya8205-2/noctune/blob/main/LICENSE"
-            className="transition hover:text-ink"
-          >
-            MIT license
-          </a>
+    <footer className="site-footer">
+      <p className="site-footer__statement">music software should sound loud and live quietly.</p>
+      <div className="site-footer__meta">
+        <a className="brand" href="#top" aria-label="back to noctune home">
+          <Logo className="brand__mark" />
+          <span>noctune</span>
+        </a>
+        <div>
+          <a href="https://github.com/caya8205-2/noctune">github</a>
+          <a href="https://github.com/caya8205-2/noctune/blob/main/LICENSE">mit license</a>
+          <span>2026</span>
         </div>
       </div>
     </footer>

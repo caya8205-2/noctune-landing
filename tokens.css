@@ -1,0 +1,66 @@
+/* Noctune · Hallmark tokens · Lumen / Night Foundry */
+:root {
+  --color-hm-paper: oklch(13% 0.014 265);
+  --color-hm-paper-2: oklch(17% 0.018 265);
+  --color-hm-paper-3: oklch(21% 0.02 265);
+  --color-hm-ink: oklch(96% 0.006 262);
+  --color-hm-ink-2: oklch(86% 0.012 262);
+  --color-hm-muted: oklch(70% 0.014 262);
+  --color-hm-faint: oklch(52% 0.016 262);
+  --color-hm-rule: oklch(96% 0.006 262 / 0.12);
+  --color-hm-rule-strong: oklch(96% 0.006 262 / 0.24);
+  --color-hm-accent: oklch(76% 0.17 50);
+  --color-hm-accent-soft: oklch(82% 0.12 50);
+  --color-hm-accent-2: oklch(68% 0.16 18);
+  --color-hm-accent-ink: oklch(17% 0.018 265);
+  --color-hm-focus: oklch(88% 0.14 95);
+  --color-hm-glow: oklch(80% 0.16 50 / 0.42);
+  --color-hm-glow-soft: oklch(80% 0.16 50 / 0.12);
+  --color-hm-emit: oklch(76% 0.17 50 / 0.04);
+  --color-hm-blueprint: oklch(96% 0.006 262 / 0.04);
+  --color-hm-backdrop: oklch(8% 0.014 265 / 0.78);
+
+  --font-hm-display: 'Instrument Serif', 'Fraunces', Georgia, serif;
+  --font-hm-body: 'Hanken Grotesk', 'Trebuchet MS', sans-serif;
+  --font-hm-label: 'JetBrains Mono', 'Courier New', monospace;
+
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 8rem;
+  --space-5xl: 10rem;
+
+  --text-xs: 0.6875rem;
+  --text-sm: 0.8125rem;
+  --text-body: 1rem;
+  --text-lede: clamp(1.0625rem, 1.4vw, 1.25rem);
+  --text-h3: clamp(1.35rem, 2.6vw, 2rem);
+  --text-h2: clamp(2.5rem, 5vw, 4.75rem);
+  --text-display: clamp(3.5rem, 8vw, 7rem);
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-pill: 999rem;
+  --rule-hair: 1px;
+
+  --dur-instant: 100ms;
+  --dur-short: 180ms;
+  --dur-medium: 280ms;
+  --dur-long: 480ms;
+  --dur-pulse: 4s;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --page-gutter: clamp(1.25rem, 4vw, 3rem);
+  --content-max: 72rem;
+  --z-nav: 40;
+  --z-dialog: 60;
+}

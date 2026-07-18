@@ -1,85 +1,83 @@
-import { useEffect, useState } from 'react'
-import AsciiLogo from './AsciiLogo.jsx'
+import { ArrowDown, Download, Github } from 'lucide-react'
 import { DemoApp } from '../demo/DemoApp.jsx'
 
-function getGreeting(hour) {
-  if (hour < 5) return 'Good night'
-  if (hour < 12) return 'Good morning'
-  if (hour < 18) return 'Good afternoon'
-  return 'Good evening'
+const ticks = Array.from({ length: 72 }, (_, index) => {
+  const wave = Math.sin(index * 0.42) * 0.34 + Math.sin(index * 0.13) * 0.22
+  return Math.round(28 + Math.abs(wave) * 60)
+})
+
+function SignalApparatus() {
+  return (
+    <figure className="signal-apparatus" aria-label="an audio signal instrument representing noctune’s matching and playback pipeline">
+      <div className="signal-apparatus__dial" aria-hidden="true">
+        <div className="signal-apparatus__ticks" />
+        <div className="signal-apparatus__needle" />
+        <div className="signal-apparatus__hub" />
+        <span className="signal-apparatus__readout">PLAY</span>
+      </div>
+      <div className="apparatus-callout apparatus-callout--one"><span>SPOTIFY METADATA</span></div>
+      <div className="apparatus-callout apparatus-callout--two"><span>YOUTUBE AUDIO</span></div>
+      <div className="apparatus-callout apparatus-callout--three"><span>LOCAL SQLITE</span></div>
+    </figure>
+  )
 }
 
 export default function Hero() {
-  const [now, setNow] = useState(new Date())
-
-  useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 30_000)
-    return () => clearInterval(id)
-  }, [])
-
-  const dateLabel = now
-    .toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })
-    .toUpperCase()
-  const timeLabel = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
-  const greeting = getGreeting(now.getHours())
-
   return (
-    <section id="top" className="relative overflow-hidden">
-      <div
-        className="pointer-events-none absolute left-1/2 top-[-10%] h-[560px] w-[900px] -translate-x-1/2 rounded-full opacity-[0.16] blur-[120px]"
-        style={{ background: 'radial-gradient(closest-side, #e3a548, transparent)' }}
-      />
-
-      <div className="relative mx-auto max-w-5xl px-6 pb-20 pt-16 sm:pt-24">
-        <div className="max-w-xl">
-          <AsciiLogo className="mb-6 hidden sm:block" />
-
-          <p className="flex items-center gap-2 text-[12px] tracking-wide text-muted">
-            <span className="h-1.5 w-1.5 rounded-full bg-amber" />
-            {dateLabel} · {timeLabel}
-          </p>
-
-          <h1 className="mt-4 font-display text-[44px] font-light leading-[1.08] text-ink sm:text-[58px]">
-            {greeting}.<br />
-            <span className="text-muted">Press play on something.</span>
-          </h1>
-
-          <p className="mt-6 max-w-md text-[15px] leading-relaxed text-muted">
-            Noctune is a desktop music player for YouTube background noise,
-            without the memory-eating browser tab, and without Spotify's ads.
-          </p>
-
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a
-              href="https://github.com/caya8205-2/noctune/releases/latest"
-              className="rounded-full bg-amber px-6 py-3 text-[14px] font-medium text-base-950 transition hover:bg-amber-soft"
-            >
-              Download for free
-            </a>
-            <a
-              href="https://github.com/caya8205-2/noctune"
-              className="rounded-full border border-line px-6 py-3 text-[14px] text-ink transition hover:border-amber-dim"
-            >
-              View on GitHub
-            </a>
+    <>
+      <section id="top" className="hero">
+        <div className="hero__inner">
+          <div className="hero__copy">
+            <p className="machine-label">DESKTOP PLAYER · WINDOWS</p>
+            <h1>press <em>play</em>.<br />keep the night.</h1>
+            <p className="hero__lede">
+              noctune turns youtube audio into a focused desktop music library—with spotify metadata,
+              synced lyrics, local history, and no browser tab left humming in the background.
+            </p>
+            <div className="hero__actions">
+              <a className="button" href="https://github.com/caya8205-2/noctune/releases/latest">
+                <Download aria-hidden="true" size={16} />
+                download for windows
+              </a>
+              <a className="text-link" href="https://github.com/caya8205-2/noctune">
+                <Github aria-hidden="true" size={16} />
+                read the source
+              </a>
+            </div>
+            <p className="hero__note">free · mit licensed · no installer telemetry</p>
           </div>
+          <SignalApparatus />
+        </div>
+        <a className="hero__scroll" href="#player">
+          <ArrowDown aria-hidden="true" size={16} />
+          try the real interface
+        </a>
+      </section>
 
-          <p className="mt-4 text-[12px] text-muted">
-            Windows today, macOS and Linux planned · MIT licensed
+      <aside className="meter" aria-label="noctune signal path">
+        <p className="machine-label">SOURCE · YOUTUBE</p>
+        <div className="meter__bars" aria-hidden="true">
+          {ticks.map((height, index) => <span key={index} style={{ '--tick-height': `${height}%` }} />)}
+        </div>
+        <p className="machine-label">OUTPUT · DESKTOP</p>
+      </aside>
+
+      <section id="player" className="player-stage">
+        <div className="section-intro section-intro--split">
+          <div>
+            <p className="machine-label">LIVE PRODUCT UI</p>
+            <h2>don’t imagine the player.<br />use it.</h2>
+          </div>
+          <p>
+            this is noctune’s interface running in the page with demo tracks. press play, skip,
+            open lyrics, or inspect what the matcher resolved.
           </p>
         </div>
-
-        <div className="relative mt-16">
-          <div
-            className="pointer-events-none absolute inset-x-8 -bottom-6 h-20 rounded-full opacity-40 blur-2xl"
-            style={{ background: '#EAB14C' }}
-          />
+        <div className="product-frame">
           <DemoApp />
-          <p className="mt-3 text-center text-[11px] text-muted">
-            This is the real UI, running right here. Dummy tracks — try the controls.
-          </p>
         </div>
-      </div>
-    </section>
+        <p className="product-frame__caption">demo tracks only · controls are interactive · the desktop build keeps your library local</p>
+      </section>
+    </>
   )
 }
