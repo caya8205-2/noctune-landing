@@ -1,0 +1,8 @@
+{
+  "date": "2026-07-18",
+  "framework": "React 18 + Vite 5",
+  "styling": "Tailwind CSS 3 with Noctune CSS tokens",
+  "fonts": ["Fraunces", "Hanken Grotesk", "JetBrains Mono"],
+  "motion": "motion-cut (no animation library)",
+  "preserve": ["Noctune palette tokens", "interactive demo port", "Tailwind config"]
+}
