@@ -26,13 +26,8 @@
     margin: 0;
     padding: 0;
     overflow-x: clip;
-    background-color: rgb(var(--bg-rgb));
-    background-image:
-      radial-gradient(130% 90% at 50% -20%, rgb(var(--accent-rgb) / 0.10), transparent 55%),
-      radial-gradient(80% 70% at 100% 115%, rgb(var(--noctune-moon) / 0.07), transparent 55%),
-      linear-gradient(180deg, #07080b 0%, #060709 60%, #050608 100%);
-    background-attachment: fixed;
-    color: rgb(var(--noctune-ink));
+    background-color: #000000;
+    color: #fcfdff;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;

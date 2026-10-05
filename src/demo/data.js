@@ -1,5 +1,5 @@
 // Fictional demo data only. Not real tracks, not real lyrics, not real
-// Spotify IDs — this exists purely to drive the interactive demo below
+// Spotify IDs: this exists purely to drive the interactive demo below
 // without needing a backend, real audio, or real API keys.
 
 export const DEMO_TRACKS = [
@@ -7,7 +7,7 @@ export const DEMO_TRACKS = [
     id: 'demo-1',
     title: 'Paper Moon',
     artist: 'Aurora Drift',
-    album: 'Paper Moon — Single',
+    album: 'Paper Moon: Single',
     duration: 257,
     source: 'resolved',
     playCount: 41,
@@ -37,7 +37,7 @@ export const DEMO_TRACKS = [
     id: 'demo-2',
     title: 'Static Bloom',
     artist: 'Kaya Faye',
-    album: 'Static Bloom — Single',
+    album: 'Static Bloom: Single',
     duration: 222,
     source: 'cache',
     playCount: 27,
@@ -64,7 +64,7 @@ export const DEMO_TRACKS = [
     id: 'demo-3',
     title: 'Glass Orbit',
     artist: 'Noctune Youth',
-    album: 'Glass Orbit — Single',
+    album: 'Glass Orbit: Single',
     duration: 301,
     source: 'prefetch',
     playCount: 63,

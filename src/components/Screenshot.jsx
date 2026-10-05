@@ -100,25 +100,23 @@ export default function Screenshot() {
   const currentView = SCREENSHOT_VIEWS.find((v) => v.key === activeKey) || SCREENSHOT_VIEWS[0]
 
   return (
-    <section id="details" className="landing-details-section">
-      <div className="landing-shell">
+    <section id="details" className="py-24 sm:py-32 bg-black border-t border-white/[0.07]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <div className="landing-section-header">
-          <div className="landing-kicker">
-            <span className="landing-kicker__dot" />
-            <span>Under The Hood</span>
+        <div className="max-w-3xl mb-12 sm:mb-16">
+          <div className="text-xs font-mono uppercase tracking-widest text-amber-400/90 mb-3">
+            Interface Tour
           </div>
-          <h2 className="landing-section-title">
-            Deep dive into the native desktop experience.
+          <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl text-white font-normal tracking-tight leading-[1.12]">
+            Every screen captured from real builds.
           </h2>
-          <p className="landing-section-lead">
-            Every pixel of Noctune was designed for speed, clarity, and total user sovereignty.
-            Explore the screens captured directly from the Windows client.
+          <p className="mt-5 text-base sm:text-lg text-white/70 font-sans leading-relaxed">
+            No mockups or concept art. These views are actual screenshots from Noctune running natively on desktop hardware.
           </p>
         </div>
 
         {/* Tab Selector Bar */}
-        <div className="landing-screenshot-tabs" role="tablist" aria-label="Noctune Views">
+        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none" role="tablist" aria-label="Noctune Views">
           {SCREENSHOT_VIEWS.map((view) => {
             const isSelected = activeKey === view.key
             return (
@@ -128,27 +126,31 @@ export default function Screenshot() {
                 role="tab"
                 aria-selected={isSelected}
                 onClick={() => setActiveKey(view.key)}
-                className={`landing-screenshot-tab ${isSelected ? 'active' : ''}`}
+                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-medium font-sans whitespace-nowrap transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 ${
+                  isSelected
+                    ? 'bg-[#101012] text-amber-300 border border-amber-400/40 shadow-sm'
+                    : 'bg-white/[0.02] text-white/60 hover:text-white hover:bg-white/[0.05] border border-white/[0.07]'
+                }`}
               >
-                <span className="landing-screenshot-tab__icon">{view.icon}</span>
-                <span className="landing-screenshot-tab__label">{view.label}</span>
+                <span className={isSelected ? 'text-amber-400' : 'text-white/40'}>{view.icon}</span>
+                <span>{view.label}</span>
               </button>
             )
           })}
         </div>
 
-        {/* Active Tab Content Card */}
-        <div className="landing-inspector-card" role="tabpanel">
+        {/* Active Tab Inspector Card */}
+        <div className="rounded-2xl border border-white/[0.08] bg-[#0a0a0c] overflow-hidden" role="tabpanel">
           {/* Top Info Header */}
-          <div className="landing-inspector-card__header">
-            <div className="landing-inspector-card__info">
-              <h3 className="landing-inspector-card__title">{currentView.title}</h3>
-              <p className="landing-inspector-card__desc">{currentView.description}</p>
+          <div className="p-6 sm:p-8 border-b border-white/[0.07] bg-white/[0.01] flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="space-y-1.5 max-w-2xl">
+              <h3 className="font-display text-2xl text-white font-normal tracking-tight">{currentView.title}</h3>
+              <p className="text-sm text-white/70 font-sans leading-relaxed">{currentView.description}</p>
             </div>
 
-            <div className="landing-inspector-card__tags">
+            <div className="flex flex-wrap gap-2">
               {currentView.tags.map((tag) => (
-                <span key={tag} className="landing-pill">
+                <span key={tag} className="text-xs font-mono px-2.5 py-1 rounded bg-white/[0.03] text-white/60 border border-white/10">
                   {tag}
                 </span>
               ))}
@@ -156,35 +158,30 @@ export default function Screenshot() {
           </div>
 
           {/* Screenshot Display Frame */}
-          <figure className="landing-inspector-frame">
-            <div className="landing-inspector-frame__topbar">
-              <div className="landing-inspector-frame__dots">
-                <span className="dot dot--red" />
-                <span className="dot dot--yellow" />
-                <span className="dot dot--green" />
+          <figure className="m-0 bg-black/80">
+            {/* Frame Top Bar */}
+            <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.06] bg-white/[0.02] text-xs font-mono text-white/40">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
+                <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
+                <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
               </div>
-              <div className="landing-inspector-frame__address">
-                <span>noctune://app/{currentView.key}</span>
-              </div>
-              <div className="landing-inspector-frame__meta">
-                <span>1920 × 1080 Native UI</span>
-              </div>
+              <div className="text-[11px] text-white/40">1920 × 1080 Native Surface</div>
             </div>
 
-            <div className="landing-inspector-frame__viewport">
+            <div className="p-2 sm:p-6 bg-black flex justify-center">
               <img
                 key={currentView.src}
                 src={currentView.src}
                 alt={currentView.alt}
-                className="landing-inspector-img"
+                className="w-full max-h-[640px] object-contain rounded-lg border border-white/[0.06] shadow-2xl"
                 loading="lazy"
               />
             </div>
 
-            <figcaption className="landing-inspector-caption">
-              <span className="text-noctune-gold font-mono">{currentView.label}</span>
-              <span className="landing-hero__badge-divider">•</span>
-              <span>Captured directly from Noctune 2.1.0 build running locally on Windows 11</span>
+            <figcaption className="px-5 py-3 border-t border-white/[0.06] bg-white/[0.01] flex items-center justify-between text-xs text-white/40 font-mono">
+              <span className="text-amber-400/90">{currentView.label}</span>
+              <span>Captured directly from Noctune desktop binary on Windows 11</span>
             </figcaption>
           </figure>
         </div>

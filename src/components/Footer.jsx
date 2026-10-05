@@ -9,103 +9,94 @@ export default function Footer() {
   }
 
   return (
-    <footer className="landing-footer">
-      <div className="landing-shell">
-        {/* Big Typographic Statement */}
-        <div className="landing-footer__statement-box">
-          <p className="landing-footer__statement">
+    <footer className="py-20 bg-black border-t border-white/[0.07] text-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-16">
+        {/* Editorial Typographic Statement */}
+        <div className="max-w-3xl">
+          <p className="font-display text-3xl sm:text-5xl lg:text-6xl text-white font-normal tracking-tight leading-[1.15]">
             One less tab between you and the music.
           </p>
         </div>
 
-        {/* Footer Navigation Columns */}
-        <div className="landing-footer__nav-grid">
-          {/* Brand Col */}
-          <div className="space-y-4">
-            <a href="#top" className="landing-brand inline-flex" aria-label="Back to top">
-              <Logo className="landing-brand__mark rounded-full" markOnly />
-              <span className="landing-brand__name">noctune</span>
+        {/* 2-Group Editorial Layout (Replacing 4-column AI template) */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pt-4 border-t border-white/[0.07]">
+          {/* Brand & Mission */}
+          <div className="md:col-span-6 space-y-4">
+            <a href="#top" className="inline-flex items-center gap-2.5 text-white" aria-label="Back to top">
+              <div className="w-7 h-7 rounded-full overflow-hidden bg-black flex items-center justify-center border border-white/10">
+                <Logo className="w-5 h-5" markOnly />
+              </div>
+              <span className="font-display text-lg tracking-tight font-medium">noctune</span>
             </a>
-            <p className="text-xs text-white/50 max-w-xs leading-relaxed">
-              A lightweight native desktop music player built for focused listening, clean metadata, and offline sqlite storage.
+            <p className="text-sm text-white/60 max-w-sm font-sans leading-relaxed">
+              A native desktop player pairing Spotify metadata with clean YouTube audio streaming. Zero telemetry, local SQLite storage, and an open-source codebase.
             </p>
-            <div className="flex items-center gap-2 text-xs text-emerald-400/90 font-mono">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>{version} Released & Stable</span>
+            <div className="flex items-center gap-2 text-xs font-mono text-emerald-400/90 pt-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              <span>Version {version} · MIT Open Source</span>
             </div>
           </div>
 
-          {/* Links Col 1: Product */}
-          <div className="space-y-3">
-            <p className="text-xs font-mono uppercase tracking-wider text-white/40">Product</p>
-            <ul className="space-y-2 text-sm text-white/70">
-              <li><a href="#demo" className="hover:text-noctune-gold transition-colors">Interactive Sandbox</a></li>
-              <li><a href="#capabilities" className="hover:text-noctune-gold transition-colors">Smart Matching Engine</a></li>
-              <li><a href="#details" className="hover:text-noctune-gold transition-colors">Listening Analytics</a></li>
-              <li><a href="#shortcuts" className="hover:text-noctune-gold transition-colors">Keyboard Hotkeys</a></li>
-              <li><a href="#download" className="hover:text-noctune-gold transition-colors">Download Windows & Linux</a></li>
-            </ul>
-          </div>
+          {/* Direct Navigation & External Links */}
+          <div className="md:col-span-6 grid grid-cols-2 gap-6 text-sm font-sans">
+            <div>
+              <p className="text-xs font-mono uppercase tracking-wider text-white/40 mb-3">Sections</p>
+              <ul className="space-y-2 text-white/60">
+                <li><a href="#demo" className="hover:text-white transition-colors">Player Sandbox</a></li>
+                <li><a href="#capabilities" className="hover:text-white transition-colors">Resolution Engine</a></li>
+                <li><a href="#details" className="hover:text-white transition-colors">Interface Tour</a></li>
+                <li><a href="#shortcuts" className="hover:text-white transition-colors">Keyboard Hotkeys</a></li>
+                <li><a href="#download" className="hover:text-amber-300 transition-colors">Download Binaries</a></li>
+              </ul>
+            </div>
 
-          {/* Links Col 2: Open Source */}
-          <div className="space-y-3">
-            <p className="text-xs font-mono uppercase tracking-wider text-white/40">Open Source</p>
-            <ul className="space-y-2 text-sm text-white/70">
-              <li>
-                <a href="https://github.com/caya8205-2/noctune" target="_blank" rel="noreferrer" className="hover:text-noctune-gold transition-colors inline-flex items-center gap-1">
-                  GitHub Repository ↗
-                </a>
-              </li>
-              <li>
-                <a href={releaseUrl} target="_blank" rel="noreferrer" className="hover:text-noctune-gold transition-colors inline-flex items-center gap-1">
-                  Releases ({version}) ↗
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/caya8205-2/noctune/blob/main/CHANGELOG.md" target="_blank" rel="noreferrer" className="hover:text-noctune-gold transition-colors inline-flex items-center gap-1">
-                  Changelog ↗
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/caya8205-2/noctune/issues" target="_blank" rel="noreferrer" className="hover:text-noctune-gold transition-colors inline-flex items-center gap-1">
-                  Report Bug or Feature ↗
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Links Col 3: Legal & Security */}
-          <div className="space-y-3">
-            <p className="text-xs font-mono uppercase tracking-wider text-white/40">Security & Tech</p>
-            <ul className="space-y-2 text-sm text-white/70">
-              <li>
-                <a href="https://github.com/caya8205-2/noctune/blob/main/LICENSE" target="_blank" rel="noreferrer" className="hover:text-noctune-gold transition-colors">
-                  MIT Open Source License
-                </a>
-              </li>
-              <li><span className="text-white/40">Tauri 2.0 + Rust Backend</span></li>
-              <li><span className="text-white/40">No Telemetry • Zero Bundled Ads</span></li>
-              <li><span className="text-emerald-400/80 font-mono text-xs">SHA256 verified binaries</span></li>
-            </ul>
+            <div>
+              <p className="text-xs font-mono uppercase tracking-wider text-white/40 mb-3">Open Source</p>
+              <ul className="space-y-2 text-white/60">
+                <li>
+                  <a href="https://github.com/caya8205-2/noctune" target="_blank" rel="noreferrer" className="hover:text-white transition-colors inline-flex items-center gap-1">
+                    <span>GitHub Repo</span>
+                    <span className="text-xs">↗</span>
+                  </a>
+                </li>
+                <li>
+                  <a href={releaseUrl} target="_blank" rel="noreferrer" className="hover:text-white transition-colors inline-flex items-center gap-1">
+                    <span>Releases</span>
+                    <span className="text-xs">↗</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://github.com/caya8205-2/noctune/blob/main/CHANGELOG.md" target="_blank" rel="noreferrer" className="hover:text-white transition-colors inline-flex items-center gap-1">
+                    <span>Changelog</span>
+                    <span className="text-xs">↗</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://github.com/caya8205-2/noctune/blob/main/LICENSE" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
+                    <span>MIT License</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="landing-footer__bottom">
-          <p className="text-xs text-white/40">
-            © {new Date().getFullYear()} Noctune by <span className="text-white/70">Caya8205</span>. Open source under the MIT License.
+        <div className="pt-8 border-t border-white/[0.07] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans text-white/40">
+          <p>
+            © {new Date().getFullYear()} Noctune by Caya8205. Built with Tauri and Rust.
           </p>
 
-          <div className="flex items-center gap-4">
-            <span className="text-xs text-white/40 hidden md:inline">100% VirusTotal Clean</span>
+          <div className="flex items-center gap-6">
+            <span className="hidden sm:inline font-mono text-[11px]">Free and Open Source</span>
             <button
               type="button"
               onClick={scrollToTop}
-              className="landing-footer__back-top"
-              aria-label="Back to top"
+              className="inline-flex items-center gap-1.5 text-white/60 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded px-1.5 py-1"
+              aria-label="Scroll back to top"
             >
               <span>Back to top</span>
-              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                 <line x1="12" y1="19" x2="12" y2="5" />
                 <polyline points="5 12 12 5 19 12" />
               </svg>

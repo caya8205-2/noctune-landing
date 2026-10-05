@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { Play, Pause, SkipBack, SkipForward, Shuffle, Repeat, Volume, Heart } from './Icons.jsx'
 
-// Fictional demo data only — not real tracks, not real lyrics.
+// Fictional demo data only: not real tracks, not real lyrics.
 const TRACKS = [
   {
     title: 'Paper Moon',
     artist: 'Aurora Drift',
-    album: 'Paper Moon — Single',
+    album: 'Paper Moon: Single',
     year: 2024,
     duration: 257,
     popularity: 60,
@@ -24,23 +24,23 @@ const TRACKS = [
   {
     title: 'Static Bloom',
     artist: 'Kaya Faye',
-    album: 'Static Bloom — Single',
+    album: 'Static Bloom: Single',
     year: 2023,
     duration: 222,
     popularity: 44,
-    tags: ['shoegaze', 'lo-fi', 'indie'],
     accent: '#7FA8FF',
     lyrics: [
-      'Fold the silence into sound',
-      'Colors bleeding through the wall',
-      'Static bloom before the dawn',
-      'Nothing here to catch our fall',
+      { time: 0, text: 'Fold the silence into sound' },
+      { time: 6, text: 'Colors bleeding through the wall' },
+      { time: 13, text: 'Static bloom before the dawn' },
+      { time: 20, text: 'Nothing here to catch our fall' },
+      { time: 28, text: 'Still the signal finds a way' },
     ],
   },
   {
     title: 'Glass Orbit',
-    artist: 'Nocturne Youth',
-    album: 'Glass Orbit — Single',
+    artist: 'Noctune Youth',
+    album: 'Glass Orbit: Single',
     year: 2024,
     duration: 301,
     popularity: 52,
@@ -139,7 +139,7 @@ export default function InteractivePlayer() {
       </div>
 
       <div className="grid grid-cols-1 bg-base sm:grid-cols-[190px_1fr]">
-        {/* sidebar — decorative, not wired up */}
+        {/* sidebar: decorative, not wired up */}
         <div className="hidden border-r border-line p-4 text-[13px] text-muted sm:block">
           <p className="mb-4 text-[11px] tracking-wide text-muted">GOOD EVENING</p>
           <nav className="space-y-0.5">
@@ -240,7 +240,7 @@ export default function InteractivePlayer() {
                 </div>
                 <button
                   onClick={(e) => e.preventDefault()}
-                  title="Demo track — not a real Spotify link"
+                  title="Demo track: not a real Spotify link"
                   className="w-full cursor-not-allowed rounded-lg border border-line py-1.5 text-center opacity-60"
                 >
                   Open in Spotify

@@ -80,7 +80,7 @@ export function DemoTrackDetailsSidebar() {
         </div>
 
         <p className="text-center text-[11px] leading-relaxed text-muted">
-          Demo track — not on Spotify.
+          Demo track: not on Spotify.
         </p>
       </div>
     </aside>

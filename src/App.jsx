@@ -8,7 +8,7 @@ import Footer from './components/Footer.jsx'
 
 export default function App() {
   return (
-    <div className="landing-page">
+    <div className="min-h-screen bg-black text-[#fcfdff] selection:bg-amber-400 selection:text-black">
       <Header />
       <main>
         <Hero />
